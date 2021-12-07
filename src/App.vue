@@ -1,6 +1,11 @@
 <template>
+
   <app-container>
-      <tag-input :add-new-tag="addNewHotel" :data-source="hotels" v-model:selectedTags="state.selectedTags" v-on:update:selectedTags="state.selectedTags = $event" :render-row-component="row => row.name"></tag-input>
+<!--  you need to provide a function to add new tags to server    -->
+<!--    also a data list of tags -->
+<!--    you need to provide a variable to get selected tags-->
+<!--    And to support all object schemas you need to provide a function to get label-->
+      <tag-input :add-new-tag="addNewHotel" :data-source="hotels" v-model:selectedTags="state.selectedTags" :render-row-component="row => row.name"></tag-input>
   </app-container>
 </template>
 

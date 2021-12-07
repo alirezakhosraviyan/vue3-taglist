@@ -1,14 +1,59 @@
 
 # Alibaba Entrance Assignment
 
+There are 5 components:
 
+- AppContainer : main layout components
+- List : suggestion list
+- Chips : for tags
+- BaseTextInput
+- TagInput: main designed component
 
+Entry point to review: App.vue
 
+### MocK seerver
+Server will serve on port 4000 by default, you can change values in folder mock-data
 
+To simplify I used hotel names for dataSource for taginput component
 
+### Sample data
+
+``` json
+[
+    {
+        "id": 1,
+        "name": "Espinas"
+    },
+    {
+        "id": 2,
+        "name": "Abasi"
+    },
+    {
+        "id": 3,
+        "name": "Jahan"
+    },
+    {
+        "id": 4,
+        "name": "Iran"
+    },
+    {
+        "id": 5,
+        "name": "Piroozi"
+    },
+    {
+        "id": 6,
+        "name": "Esteghlal"
+    },
+    {
+        "id": 7,
+        "name": "Aseman"
+    }
+]
+
+```
 ## Demo
 
-Demo at http://192.168.1.1:3000
+Demo at http://88.135.36.10:8080
 
 
 ## Environment Variables
@@ -41,8 +86,17 @@ Install dependencies
 Start the server
 
 ```bash
-  npm run serve
+  npm run mock
 ```
+
+
+Start the Client
+
+```bash
+  npm run serve 
+```
+
+
 
 
 ## Tech Stack
@@ -65,6 +119,12 @@ Start the server
 - As a user, I need to be able to *Close the suggestions list.*  When the suggestions are visible, and *I click outside of the text input or suggestions list.*
 - As a user, I need to be able to *Close the suggestions list,*  When the suggestions are visible, and *I blur on the text input.*
 
+
+## Known Issues because of limited Time
+I don't have enough time according to my agenda to implement all features of my assignment! Tnx for understanding in advance!
+- list scroll
+- add new tag by ',' 
+- Testing by storybook
 
 ## Author
 

@@ -3,6 +3,7 @@
     <base-text-input  @keydown.enter="enterClicked()" v-model:value="state.searchText" @open-option-list="state.showOptionList = true"  @close-option-list="state.showOptionList = false"></base-text-input>
     <div class="tag-info-container">
       <div class="input-options" v-if="state.showOptionList">
+<!--   known issue: can be more simplified by removing addToSelectedTags-->
         <list v-on:select="addToSelectedTags(cleanDataSource[$event])" v-model:selectedItem="state.selectedItem" :data-source="cleanDataSource" :render-row-component="renderRowComponent"></list>
       </div>
 
@@ -45,8 +46,6 @@ export default {
   components: {List, Chips, BaseTextInput},
   setup(props, {emit}) {
 
-    const onChangeText = searchText => state.searchText = searchText
-
     const state = reactive({
       filteredDataSource : props.dataSource,
       showOptionList: false,
@@ -54,38 +53,50 @@ export default {
       selectedItem: 0
     });
 
+    // cleanDataSource = dataSource - selectedTags -->  prevent duplicate selecting
     const cleanDataSource = computed(() => _.difference(props.dataSource.filter(x => !state.searchText? x : x.name.toLowerCase().match(state.searchText.toString().toLowerCase())), props.selectedTags))
+
     const enterClicked = () => {
 
+      // handle firs item selection when text input focused
       if (state.searchText === '') {
         addToSelectedTags(cleanDataSource.value[state.selectedItem])
       }else {
         const {addNewTag, renderRowComponent} = props
+        // if you write some characters which matches two words , for example
+        // hotel espinas and esteghlal are starting with 'es'
+        // if in list espinas came sooner than esteghlal
+        // code selects espinas and will add it to tag list
         let selectedTag = cleanDataSource.value.filter(x => renderRowComponent(x).toLowerCase() === state.searchText).shift()
         if (!selectedTag && addNewTag) {
           selectedTag = {id: Math.random(), name: state.searchText}
+          // server simulation in store
           addNewTag(selectedTag);
         }
         addToSelectedTags(selectedTag)
         state.searchText = ''
       }
     };
+
+    //
     const addToSelectedTags = selectedItem => {
       emit('update:selectedTags', [...props.selectedTags, selectedItem])
     }
+
+    const arrowKeyPressed = event => {
+      if (event.code === 'ArrowDown') {
+        state.selectedItem = state.selectedItem <= cleanDataSource.value.length ? state.selectedItem + 1 : 0
+      } else if (event.code === 'ArrowUp') {
+        state.selectedItem = state.selectedItem >= 0 ? state.selectedItem - 1 : cleanDataSource.value.length
+      }
+    }
+
     return {
       state,
-      onChangeText,
       addToSelectedTags,
       cleanDataSource,
       enterClicked,
-      arrowKeyPressed: event => {
-        if (event.code === 'ArrowDown') {
-          state.selectedItem = state.selectedItem <= cleanDataSource.value.length ? state.selectedItem + 1 : 0
-        }else if (event.code === 'ArrowUp') {
-          state.selectedItem = state.selectedItem >= 0 ? state.selectedItem - 1 : cleanDataSource.value.length
-        }
-      }
+      arrowKeyPressed
     }
   }
 }

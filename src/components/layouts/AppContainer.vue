@@ -13,17 +13,13 @@ export default {
 <style scoped lang="scss">
 .app-container {
   display: flex;
+  align-self: center;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  width: 304px;
-  height: 593px;
-  left: 460px;
-  top: 133px;
+  width: 100vw;
+  height: 100vh;
   padding: 32px;
-  border: 1px dashed #7B61FF;
   box-sizing: border-box;
-  border-radius: 5px;
 }
 </style>
