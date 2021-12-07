@@ -86,6 +86,8 @@ Install dependencies
 Start the server
 
 ```bash
+
+*** IMPORTANT : please bypass CORS on your browser to accss mock server **
   npm run mock
 ```
 
