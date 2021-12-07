@@ -1,0 +1,34 @@
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Response-Delay: 1000
+
+[
+{
+"id": 1,
+"name": "Espinas"
+},
+{
+"id": 2,
+"name": "Abasi"
+},
+{
+"id": 3,
+"name": "Jahan"
+},
+{
+"id": 4,
+"name": "Iran"
+},
+{
+"id": 5,
+"name": "Piroozi"
+},
+{
+"id": 6,
+"name": "Esteghlal"
+},
+{
+"id": 7,
+"name": "Aseman"
+}
+]
